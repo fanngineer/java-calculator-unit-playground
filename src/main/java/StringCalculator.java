@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class StringCalculator {
     public static int sum(String input){
         int output = 0;
@@ -22,20 +24,20 @@ public class StringCalculator {
                 regex += "|" + customDelimiter;
             }
         }
-        String[] tokens = input.split(regex);
-        int[] res = new int[tokens.length];
-        int idx = 0;
-        for(String token : tokens){
-            try{
-                int num = Integer.parseInt(token);
-                if(num>9 || num<0){
-                    throw new RuntimeException();
-                }
-                res[idx++] = num;
-            }catch(Exception e){
+        return Arrays.stream(input.split(regex))
+                .mapToInt(token -> parseToValidInteger(token))
+                .toArray();
+    }
+
+    private static int parseToValidInteger(final String token){
+        try{
+            final int num = Integer.parseInt(token);
+            if(num>9 || num<0){
                 throw new RuntimeException();
             }
+            return num;
+        }catch(NumberFormatException e){
+            throw new RuntimeException();
         }
-        return res;
     }
 }
