@@ -46,6 +46,7 @@ public class StringCalculatorTest {
     public void stringToIntArrayAssertJTest(){
         assertThat(StringCalculator.stringToIntArray("6:5")).isEqualTo(new int[] {6,5});
         assertThat(StringCalculator.stringToIntArray("//'\n6'5'4")).isEqualTo(new int[] {6,5,4});
+        assertThat(StringCalculator.stringToIntArray("//|\n6|5,4")).isEqualTo(new int[] {6,5,4});
         assertThatThrownBy(() -> {
             StringCalculator.stringToIntArray("//}\nㄱ,j,3"
             );

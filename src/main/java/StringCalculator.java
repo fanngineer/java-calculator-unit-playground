@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class StringCalculator {
     public static int sum(String input){
@@ -17,10 +19,13 @@ public class StringCalculator {
             input = input.split("\n")[1];
         }
         String regex = ",|:";
+        HashSet<String> set = new HashSet<>();
+        set.addAll(List.of("{", "}", ".", "*", "+", "?", "^", "$","\\", "|"));
         if(customDelimiter.length() > 0) {
-            if(customDelimiter.equals(".")){
-                regex += "|" + "\\.";
-            }else{
+            if(set.contains(customDelimiter)){
+                regex += "|" + "\\" + customDelimiter;
+            }
+            else{
                 regex += "|" + customDelimiter;
             }
         }
